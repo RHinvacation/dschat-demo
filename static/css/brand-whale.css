@@ -1,0 +1,135 @@
+/* DeepSeek 品牌标识：铺在打包产物旁，不改动 main.js */
+/* 鲸鱼图形：收起态左上角、欢迎语 */
+.collapsed-ac14ac::before,
+.greeting-_1f155::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  background-image: url("../media/deepseek-whale.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* 应用名换成字标后仍给侧栏留出余量（与移动端抽屉的 300px 一致） */
+.sider-ac14ac:not(.mobile-ac14ac) {
+  width: 300px;
+}
+
+/* 展开态侧栏标题：28px 鲸鱼（与收起态同尺寸）+ 字标文字 + WITH API 徽标。
+   原文字保留在 DOM 里（font-size:0 只做视觉隐藏），读屏仍能读到 DeepSeek with API */
+.appName-ac14ac {
+  font-size: 0;
+}
+
+.appName-ac14ac::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  width: 138px;
+  height: 28px;
+  background-image: url("../media/deepseek-whale.svg"), url("../media/deepseek-wordmark-text.svg");
+  background-position: 0 center, 36px center;
+  background-size: 28px 28px, auto 20px;
+  background-repeat: no-repeat;
+}
+
+.appName-ac14ac::after {
+  content: "WITH API";
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  padding: 3px 6px 2px;
+  border: 1.5px solid currentColor;
+  border-radius: 5px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: #3964fe;
+}
+
+/* 收起态左上角：鲸鱼在按钮胶囊左侧 */
+.collapsed-ac14ac::before {
+  width: 28px;
+  height: 28px;
+  margin-right: -4px;
+}
+
+/* 欢迎语：鲸鱼 + 问候文案 */
+.greeting-_1f155::before {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+@media (max-width: 439px) {
+  .greeting-_1f155::before {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+}
+
+/* 深色主题：所有鲸鱼与字标统一转白 */
+[data-ds-dark-theme] .collapsed-ac14ac::before,
+[data-ds-dark-theme] .greeting-_1f155::before {
+  background-image: url("../media/deepseek-whale-dark.svg");
+}
+
+[data-ds-dark-theme] .appName-ac14ac::before {
+  background-image: url("../media/deepseek-whale-dark.svg"), url("../media/deepseek-wordmark-text-dark.svg");
+}
+
+[data-ds-dark-theme] .appName-ac14ac::after {
+  color: #ffffff;
+}
+
+/* 页脚署名：仅在新对话（欢迎页）显示，会话页底部被输入框与提示占用 */
+.ds-credit {
+  position: fixed;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  z-index: 5;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--dsw-alias-label-tertiary, #8b8b8b);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 侧栏展开时把页脚居中到主内容区 */
+@media (min-width: 768px) {
+  body:has(.sider-ac14ac) .ds-credit {
+    padding-left: 300px;
+  }
+}
+
+/* 会话页：输入框和“内容由 AI 生成”提示已经占满底部，避免叠字 */
+body:has([class^="view-"]) .ds-credit {
+  display: none;
+}
+
+@media not all and (min-width: 768px) {
+  .ds-credit {
+    display: none;
+  }
+}
+
+.ds-credit a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+  transition: color 0.15s ease, border-color 0.15s ease;
+  pointer-events: auto;
+}
+
+.ds-credit a:hover {
+  color: var(--dsw-alias-brand-primary, #4d6bfe);
+  border-bottom-color: currentColor;
+}
